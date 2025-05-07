@@ -15,7 +15,7 @@ export class RegisterComponent {
   registerForm : FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]), 
     email:new FormControl(null, [Validators.required, Validators.email]),
-    password:new FormControl(null, [Validators.required, Validators.pattern(/^[A-Z]\w{7,}$/)]),
+    password:new FormControl(null, [Validators.required, Validators.pattern(/^[A-Z][\w@]{7,}$/)]),
     rePassword: new FormControl(null, [Validators.required]),
     phone: new FormControl(null, [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)])
   }, this.confirmPassword) 
@@ -28,13 +28,13 @@ export class RegisterComponent {
   }
 
   async submitForm(){
-    // try {
-    //   console.log("Hello from submit form!")
-    //   const result = await this.supabaseService.insertUser(this.registerForm);
-    //   console.log('User inserted:', result);
-    // } catch (error) {
-    //   console.error('Error inserting user:', error);
-    // }
+    try {
+      console.log("Hello from submit form!")
+      const result = await this.supabaseService.insertUser(this.registerForm.value);
+      console.log('User inserted:', result);
+    } catch (error) {
+      console.log('Error inserting user:', error);
+    }
   }
 
 }
